@@ -73,12 +73,12 @@ class ToastNotifier(object):
         # Register the window class.
         self.wc = WNDCLASS()
         self.hinst = self.wc.hInstance = GetModuleHandle(None)
-        self.wc.lpszClassName = str("PythonTaskbar")  # must be a string
+        self.wc.lpszClassName = str(f"PythonTaskbar{title}")  # must be a string
         self.wc.lpfnWndProc = message_map  # could also specify a wndproc.
         try:
-            self.classAtom = RegisterClass(self.wc)
-        except:
-            pass #not sure of this
+            self.classAtom = RegisterClass(self.wc)    
+        except Exception as e:
+            print(e)
         style = WS_OVERLAPPED | WS_SYSMENU
         self.hwnd = CreateWindow(self.classAtom, "Taskbar", style,
                                  0, 0, CW_USEDEFAULT,
